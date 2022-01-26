@@ -1,0 +1,1 @@
+insert into estudiantes(nombre, apellido) values('hermes','idat')
