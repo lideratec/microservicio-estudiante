@@ -1,13 +1,13 @@
 package com.idat.idatestudiante.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.idat.idatestudiante.dto.EstudianteDTO;
-import com.idat.idatestudiante.entity.Estudiante;
+import com.idat.idatestudiante.mapper.EstudianteRequestMapper;
+import com.idat.idatestudiante.mapper.EstudianteResponseMapper;
 import com.idat.idatestudiante.repository.EstudianteRepository;
 
 @Service
@@ -15,33 +15,21 @@ public class EstudianteServiceImpl implements EstudianteService {
 
 	@Autowired
 	private EstudianteRepository repo;
+	@Autowired
+	private EstudianteRequestMapper erqm;
+	@Autowired
+	private EstudianteResponseMapper erpm;
 	
 	@Override
 	public List<EstudianteDTO> listar() {
 		
-		EstudianteDTO dto = null;
-		
-		List<EstudianteDTO> listDTO = new ArrayList<>();
-		
-		List<Estudiante> estudiante = repo.findAll();
-		
-		for (Estudiante e : estudiante) {
-			dto =new EstudianteDTO();
-			dto.setId(e.getId());
-			dto.setNombre(e.getNombre());
-			dto.setApellido(e.getApellido());
-			listDTO.add(dto);
-		}
-		return listDTO;
+		return erpm.listarEstudianteDTOlist(repo.findAll());
 	}
 
 	@Override
 	public void crear(EstudianteDTO estudiante) {
-		Estudiante entity = new Estudiante();
-		entity.setNombre(estudiante.getNombre());
-		entity.setApellido(estudiante.getApellido());
-		
-		repo.save(entity);
+
+		repo.save(erqm.estudianteEntity(estudiante));
 		
 	}
 

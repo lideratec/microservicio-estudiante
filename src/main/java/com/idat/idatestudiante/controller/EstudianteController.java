@@ -15,6 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.idat.idatestudiante.dto.EstudianteDTO;
 import com.idat.idatestudiante.service.EstudianteService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
+@Api(tags = "Estudiante API")
 @RestController
 @RequestMapping("/estudiante")
 public class EstudianteController {
@@ -22,16 +28,23 @@ public class EstudianteController {
 	@Autowired
 	private EstudianteService service;
 	
+	@ApiOperation(value = "Listar estudiantes", notes = "Listar estudiantes")
+	@ApiResponses(value = {
+			@ApiResponse(code = 401, message = "No existe"),
+			@ApiResponse(code = 201, message = "creado")
+	})
 	@GetMapping("/listar")
 	public @ResponseBody List<EstudianteDTO> listarEstudiantes(){
 		return service.listar();
 	}
 	
+	@ApiOperation(value = "Crear estudiantes", notes = "Crear estudiantes")
 	@PostMapping("/crear")
 	public void crearEstudiante(@RequestBody EstudianteDTO dto) {
 		service.crear(dto);
 	}
 	
+	@ApiOperation(value = "Eliminar estudiantes", notes = "Eliminar estudiantes")
 	@DeleteMapping("/eliminar/{id}")
 	public void eliminarEstudiante(@PathVariable Integer id) {
 		service.eliminar(id);

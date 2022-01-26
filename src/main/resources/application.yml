@@ -1,1 +1,1 @@
-server:  port: 8088spring:  application:    name: idat-estudiante  config:    import: configserver:http://localhost:8888  profiles:    active: dev
+server:  port: 8088spring:  application:    name: idat-estudiante  config:    import: configserver:http://localhost:8888  profiles:    active: dev  mvc:    pathmatch:      matching-strategy: ant-path-matcher     
