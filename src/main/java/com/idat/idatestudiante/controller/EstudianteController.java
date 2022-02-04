@@ -22,7 +22,7 @@ import io.swagger.annotations.ApiResponses;
 
 @Api(tags = "Estudiante API")
 @RestController
-@RequestMapping("/estudiante")
+@RequestMapping("/api/estudiante")
 public class EstudianteController {
 	
 	@Autowired
